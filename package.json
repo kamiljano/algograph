@@ -1,0 +1,21 @@
+{
+  "name": "algograph",
+  "version": "1.0.0",
+  "description": "A small library allowing to traverse and manage graphs",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Kamil Janowski - kgjanowski@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.9",
+    "jest": "^26.2.2",
+    "ts-jest": "^26.1.4"
+  }
+}
