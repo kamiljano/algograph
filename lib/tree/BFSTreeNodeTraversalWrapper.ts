@@ -1,5 +1,6 @@
 import {TreeNode} from "./TreeNode";
 import {TraversalWrapper} from "./TraversalWrapper";
+import {Queue} from '../simple/Queue';
 
 export class BFSTreeNodeTraversalWrapper<T> extends TraversalWrapper<T> {
 
@@ -8,15 +9,15 @@ export class BFSTreeNodeTraversalWrapper<T> extends TraversalWrapper<T> {
     }
 
     [Symbol.iterator](): Iterator<TreeNode<T>> {
-        let fifo: TreeNode<T>[] = [this.node];
+        const queue = new Queue<TreeNode<T>>([this.node]);
 
         return {
             next(): IteratorResult<TreeNode<T>> {
-                const element = fifo.shift() as TreeNode<T>;
-                element?.children?.forEach(child => fifo.push(child));
+                const element = queue.shift() as TreeNode<T>;
+                element?.children?.forEach(child => queue.push(child));
                 return {
                     value: element,
-                    done: !fifo.length && !element
+                    done: !queue.length && !element
                 };
             },
         };
