@@ -1,11 +1,11 @@
 import {TreeNode} from "./TreeNode";
-import {TraversalWrapper} from "./TraversalWrapper";
+import {Collection, TraversalWrapper} from "./TraversalWrapper";
 import {Queue} from '../simple/Queue';
 
 export class BFSTreeNodeTraversalWrapper<T> extends TraversalWrapper<T> {
 
-    constructor(readonly node: TreeNode<T>) {
-        super();
+    constructor(node: TreeNode<T>) {
+        super(node);
     }
 
     [Symbol.iterator](): Iterator<TreeNode<T>> {
@@ -20,6 +20,21 @@ export class BFSTreeNodeTraversalWrapper<T> extends TraversalWrapper<T> {
                     done: !queue.length && !element
                 };
             },
+        };
+    }
+
+    protected get collection(): Collection<TreeNode<T>> {
+        const queue = new Queue<TreeNode<T>>([this.node]);
+        return {
+            add(element: TreeNode<T>) {
+                queue.push(element);
+            },
+            pop(): TreeNode<T> | undefined {
+                return queue.shift();
+            },
+            get empty() {
+                return !queue.length;
+            }
         };
     }
 }
