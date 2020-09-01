@@ -6,11 +6,22 @@ export class Queue<T> {
         return this.elements.length;
     }
 
-    push(element: T) {
+    get size() {
+        return this.elements.length;
+    }
+
+    add(element: T) {
         this.elements.push(element);
     }
 
-    shift() {
+    /**
+     * Retrieves the element and removes it from the queue
+     */
+    poll(): T | undefined{
         return this.elements.shift();
+    }
+
+    isEmpty() {
+        return this.elements.length === 0;
     }
 }

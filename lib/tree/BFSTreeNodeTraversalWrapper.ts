@@ -13,8 +13,8 @@ export class BFSTreeNodeTraversalWrapper<T> extends TraversalWrapper<T> {
 
         return {
             next(): IteratorResult<TreeNode<T>> {
-                const element = queue.shift() as TreeNode<T>;
-                element?.children?.forEach(child => queue.push(child));
+                const element = queue.poll() as TreeNode<T>;
+                element?.children?.forEach(child => queue.add(child));
                 return {
                     value: element,
                     done: !queue.length && !element
@@ -27,10 +27,10 @@ export class BFSTreeNodeTraversalWrapper<T> extends TraversalWrapper<T> {
         const queue = new Queue<TreeNode<T>>([this.node]);
         return {
             add(element: TreeNode<T>) {
-                queue.push(element);
+                queue.add(element);
             },
             pop(): TreeNode<T> | undefined {
-                return queue.shift();
+                return queue.poll();
             },
             get empty() {
                 return !queue.length;
