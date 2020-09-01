@@ -2,6 +2,58 @@ import {Tree} from "../../../lib/tree/Tree";
 
 describe('Given a tree', () => {
 
+    describe('When requesting the count', () => {
+
+        test('of an empty tree, Then the count is 0', () => {
+            expect(new Tree().count).toBe(0);
+        });
+
+        test('of a 1-element tree, Then the count is 1', () => {
+            expect(new Tree({
+                value: 1
+            }).count).toBe(1);
+        });
+
+        test('of a 1-element tree with 3 children, Then the count is 4', () => {
+            expect(new Tree({
+                value: 1,
+                children: [
+                    {
+                        value: 1
+                    },
+                    {
+                        value: 1
+                    },
+                    {
+                        value: 1
+                    }
+                ]
+            }).count).toBe(4);
+        });
+
+        test('of a 1-element tree with depth 3, Then the count is 4', () => {
+            expect(new Tree({
+                value: 1,
+                children: [
+                    {
+                        value: 1,
+                        children: [
+                            {
+                                value: 1,
+                                children: [
+                                    {
+                                        value: 1
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }).count).toBe(4);
+        });
+
+    });
+
     describe('When requesting the depth', () => {
 
         test('of an empty tree, Then the depth is 0', () => {
