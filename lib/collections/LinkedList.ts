@@ -1,10 +1,12 @@
+import {ExtensibleCollection} from "./ExtensibleCollection";
+
 interface Element<T> {
     readonly value: T;
     previous?: Element<T>;
     next?: Element<T>
 }
 
-export class LinkedList<T> implements Iterable<T> {
+export class LinkedList<T> implements ExtensibleCollection<T>, Iterable<T> {
     private _first?: Element<T>;
     private _last?: Element<T>;
     private _size = 0;
@@ -119,5 +121,9 @@ export class LinkedList<T> implements Iterable<T> {
                 };
             }
         };
+    }
+
+    toArray(): T[] {
+        return Array.from(this);
     }
 }

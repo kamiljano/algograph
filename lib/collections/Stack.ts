@@ -1,6 +1,7 @@
 import {LinkedList} from "./LinkedList";
+import {ExtensibleCollection} from "./ExtensibleCollection";
 
-export class Stack<T> {
+export class Stack<T> implements ExtensibleCollection<T> {
 
     private readonly list: LinkedList<T>;
 
@@ -30,5 +31,13 @@ export class Stack<T> {
     addAll(iterable: Iterable<T>): this {
         this.list.addAll(iterable);
         return this;
+    }
+
+    get isEmpty(): boolean {
+        return this.isEmpty;
+    }
+
+    toArray(): T[] {
+        return Array.from(this.list);
     }
 }

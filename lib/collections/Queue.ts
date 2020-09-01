@@ -1,6 +1,7 @@
 import {LinkedList} from "./LinkedList";
+import {ExtensibleCollection} from "./ExtensibleCollection";
 
-export class Queue<T> {
+export class Queue<T> implements ExtensibleCollection<T> {
 
     private readonly list: LinkedList<T>;
 
@@ -37,5 +38,9 @@ export class Queue<T> {
 
     get isEmpty() {
         return this.list.isEmpty;
+    }
+
+    toArray(): T[] {
+        return Array.from(this.list);
     }
 }
