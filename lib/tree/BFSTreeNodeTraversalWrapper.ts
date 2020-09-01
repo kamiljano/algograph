@@ -1,6 +1,6 @@
 import {TreeNode} from "./TreeNode";
 import {Collection, TraversalWrapper} from "./TraversalWrapper";
-import {Queue} from '../simple/Queue';
+import {Queue} from '../collections/Queue';
 
 export class BFSTreeNodeTraversalWrapper<T> extends TraversalWrapper<T> {
 

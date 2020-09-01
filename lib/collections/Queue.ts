@@ -21,8 +21,8 @@ export class Queue<T> {
         return this;
     }
 
-    addAll(element: T): this {
-        this.list.add(element);
+    addAll(iterable: Iterable<T>): this {
+        this.list.addAll(iterable);
         return this;
     }
 

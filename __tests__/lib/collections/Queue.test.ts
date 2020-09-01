@@ -1,4 +1,4 @@
-import {Queue} from "../../../lib/simple/Queue";
+import {Queue} from "../../../lib/collections/Queue";
 
 describe('Given a queue', () => {
 
@@ -9,16 +9,16 @@ describe('Given a queue', () => {
     test('When adding something to the queue, Then it is retrievable', () => {
         const queue = new Queue<number>();
         queue.add(11);
+        queue.add(12);
 
-        expect(queue.length).toBe(1);
-        expect(queue.size).toBe(1);
+        expect(queue.length).toBe(2);
+        expect(queue.size).toBe(2);
         expect(queue.isEmpty).toBe(false);
 
         const element = queue.poll();
         expect(element).toBe(11);
 
-        expect(queue.length).toBe(0);
-        expect(queue.isEmpty).toBe(true);
+        expect(queue.length).toBe(1);
     });
 
 });
