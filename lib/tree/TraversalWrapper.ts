@@ -2,17 +2,16 @@ import {TreeNode} from "./TreeNode";
 
 export type ItarationConsumer<T> = (value: T) => any;
 
-export interface Collection<T> {
-    add(element: T): void;
-    pop(): T | undefined;
+export interface TreeTraversalCollection<T> {
     readonly empty: boolean;
+    iterate(): T | undefined;
 }
 
 export abstract class TraversalWrapper<T> implements Iterable<TreeNode<T>>{
 
-    protected abstract readonly collection: Collection<TreeNode<T>>;
+    protected abstract readonly collection: TreeTraversalCollection<TreeNode<T>>;
 
-    protected constructor(protected readonly node: TreeNode<T>) { }
+    protected constructor(protected readonly node?: TreeNode<T>) { }
 
     forEach(consumer: ItarationConsumer<TreeNode<T>>): void {
         for (let node of this) {
@@ -25,14 +24,9 @@ export abstract class TraversalWrapper<T> implements Iterable<TreeNode<T>>{
 
         return {
             next(): IteratorResult<TreeNode<T>> {
-                const element = col.pop() as TreeNode<T>;
-                if (element?.children) {
-                    for (let i = element.children.length - 1; i >= 0; i--) {
-                        col.add(element.children[i]);
-                    }
-                }
+                const element = col.iterate();
                 return {
-                    value: element,
+                    value: element as TreeNode<T>,
                     done: col.empty && !element
                 };
             },
