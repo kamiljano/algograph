@@ -57,7 +57,10 @@ export class LinkedList<T> implements ExtensibleCollection<T>, Iterable<T> {
         return this;
     }
 
-    addAll(iterable: Iterable<T>): this {
+    addAll(iterable?: Iterable<T>): this {
+        if (!iterable) {
+            return this;
+        }
         for (let e of iterable) {
             this.add(e);
         }

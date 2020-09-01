@@ -28,7 +28,7 @@ export class Stack<T> implements ExtensibleCollection<T> {
         return this;
     }
 
-    addAll(iterable: Iterable<T>): this {
+    addAll(iterable?: Iterable<T>): this {
         this.list.addAll(iterable);
         return this;
     }

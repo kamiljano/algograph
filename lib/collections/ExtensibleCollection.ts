@@ -4,7 +4,7 @@ export interface ExtensibleCollection<T> {
     readonly isEmpty: boolean;
 
     add(value: T): this;
-    addAll(iterable: Iterable<T>): this;
+    addAll(iterable?: Iterable<T>): this;
 
     toArray(): T[];
 }
