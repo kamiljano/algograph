@@ -79,6 +79,11 @@ describe('Given a LinkedList', () => {
             expect(Array.from(list.remove(0))).toHaveLength(2);
         });
 
+        test('an element with a wrong id, then the size is not changed', () => {
+            expect(Array.from(list.remove(5))).toEqual([1, 2, 3]);
+            expect(Array.from(list.remove(5))).toHaveLength(3);
+        });
+
         test('First element, Then it is successfully removed', () => {
             expect(Array.from(list.remove(0))).toEqual([2, 3]);
         });

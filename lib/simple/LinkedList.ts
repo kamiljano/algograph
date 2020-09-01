@@ -5,8 +5,8 @@ interface Element<T> {
 }
 
 export class LinkedList<T> implements Iterable<T> {
-    private first?: Element<T>;
-    private last?: Element<T>;
+    private _first?: Element<T>;
+    private _last?: Element<T>;
     private _size = 0;
 
     //TODO: reverse()
@@ -30,18 +30,26 @@ export class LinkedList<T> implements Iterable<T> {
         return this._size === 0;
     }
 
+    get first(): T | undefined {
+        return this._first?.value;
+    }
+
+    get last(): T | undefined {
+        return this._last?.value;
+    }
+
     add(value: T): this {
         const element: Element<T> = {
             value,
-            previous: this.last
+            previous: this._last
         }
         if (this.isEmpty) {
-            this.first = element;
-            this.last = element;
+            this._first = element;
+            this._last = element;
         } else {
-            (this.last as Element<T>).next = element;
-            element.previous = this.last;
-            this.last = element;
+            (this._last as Element<T>).next = element;
+            element.previous = this._last;
+            this._last = element;
         }
         this._size++;
         return this;
@@ -59,7 +67,7 @@ export class LinkedList<T> implements Iterable<T> {
             return undefined;
         }
 
-        let current = this.first;
+        let current = this._first;
         let currentId = 0;
         while (currentId < id) {
             currentId ++;
@@ -80,12 +88,12 @@ export class LinkedList<T> implements Iterable<T> {
             if (element.previous) {
                 element.previous.next = element.next;
             } else {
-                this.first = element.next;
+                this._first = element.next;
             }
             if (element.next) {
                 element.next.previous = element.previous;
             } else {
-                this.last = element.previous;
+                this._last = element.previous;
             }
         }
 
@@ -93,7 +101,7 @@ export class LinkedList<T> implements Iterable<T> {
     }
 
     [Symbol.iterator](): Iterator<T, any, undefined> {
-        let nextElement: Element<T> | undefined = this.first;
+        let nextElement: Element<T> | undefined = this._first;
         return {
             next: function () {
                 if (nextElement) {

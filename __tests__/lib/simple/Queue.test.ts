@@ -12,13 +12,13 @@ describe('Given a queue', () => {
 
         expect(queue.length).toBe(1);
         expect(queue.size).toBe(1);
-        expect(queue.isEmpty()).toBe(false);
+        expect(queue.isEmpty).toBe(false);
 
         const element = queue.poll();
         expect(element).toBe(11);
 
         expect(queue.length).toBe(0);
-        expect(queue.isEmpty()).toBe(true);
+        expect(queue.isEmpty).toBe(true);
     });
 
 });
