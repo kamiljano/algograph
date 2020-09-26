@@ -1,7 +1,6 @@
 import {TreeNode} from "./TreeNode";
 import {Queue, Stack} from "../../collections";
 import {Tree, TreeNodeIterationDescriptor} from "../Tree";
-import {GenericIterator} from "../../GenericIterator";
 
 type DescribedTreeNode<T> = TreeNode<T> & TreeNodeIterationDescriptor<TreeNode<T>>;
 
@@ -54,18 +53,11 @@ const bfs = <T>(root?: TreeNode<T>): Iterator<DescribedTreeNode<T>> => {
 export class GenericTree<T> extends Tree<TreeNode<T>> {
 
     constructor(private _root?: TreeNode<T>) {
-        super(() => dfs(this._root));
-    }
-
-    get iterator() {
-        const self = this;
-        return { //TODO: add pre-order, in-order, post-order
-            get depthFirst() {
-                return new GenericIterator(() => dfs(self._root));
-            },
-            get breadthFirst() {
-                return  new GenericIterator(() => bfs(self._root));
+        super({
+            iterators: {
+                dfs: () => dfs(this._root),
+                bfs: () => bfs(this._root)
             }
-        };
+        });
     }
 }

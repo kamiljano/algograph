@@ -4,7 +4,19 @@ export interface TreeNodeIterationDescriptor<TreeNode> {
     path: (TreeNode & TreeNodeIterationDescriptor<TreeNode>)[];
 }
 
-export class Tree<TreeNode> extends GenericIterator<TreeNode & TreeNodeIterationDescriptor<TreeNode>>{
+export interface TreeOptions<T> {
+    iterators: {
+      dfs: () => Iterator<T>;
+      bfs: () => Iterator<T>;
+    };
+}
+
+export abstract class Tree<TreeNode> extends GenericIterator<TreeNode & TreeNodeIterationDescriptor<TreeNode>>{
+
+    protected constructor(private readonly _options: TreeOptions<TreeNode & TreeNodeIterationDescriptor<TreeNode>>) {
+        super(_options.iterators.dfs);
+    }
+
     //todo: find
 
     get depth() {
@@ -23,5 +35,17 @@ export class Tree<TreeNode> extends GenericIterator<TreeNode & TreeNodeIteration
             counter++;
         }
         return counter;
+    }
+
+    get iterator() {
+        const self = this;
+        return { //TODO: add pre-order, in-order, post-order
+            get depthFirst() {
+                return new GenericIterator(self._options.iterators.dfs);
+            },
+            get breadthFirst() {
+                return new GenericIterator(self._options.iterators.bfs);
+            }
+        };
     }
 }

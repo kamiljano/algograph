@@ -1,7 +1,7 @@
 type ForEachConsumer<T> = (value: T) => any;
 type Mapping<T, R> = (value: T) => R;
 
-export class GenericIterator<T> implements Iterable<T>{
+export class GenericIterator<T> implements Iterable<T> {
 
     protected constructor(private readonly _defaultIteratorGetter: () => Iterator<T>) {}
 
