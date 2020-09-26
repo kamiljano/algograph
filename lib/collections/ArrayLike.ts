@@ -1,4 +1,4 @@
-export interface ExtensibleCollection<T> {
+export interface ArrayLike<T> {
     readonly size: number;
     readonly length: number;
     readonly isEmpty: boolean;

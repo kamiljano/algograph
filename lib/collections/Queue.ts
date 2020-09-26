@@ -1,7 +1,7 @@
 import {LinkedList} from "./LinkedList";
-import {ExtensibleCollection} from "./ExtensibleCollection";
+import {ArrayLike} from "./ArrayLike";
 
-export class Queue<T> implements ExtensibleCollection<T> {
+export class Queue<T> implements ArrayLike<T> {
 
     private readonly list: LinkedList<T>;
 

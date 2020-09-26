@@ -1,7 +1,7 @@
 import {LinkedList} from "./LinkedList";
-import {ExtensibleCollection} from "./ExtensibleCollection";
+import {ArrayLike} from "./ArrayLike";
 
-export class Stack<T> implements ExtensibleCollection<T> {
+export class Stack<T> implements ArrayLike<T> {
 
     private readonly list: LinkedList<T>;
 

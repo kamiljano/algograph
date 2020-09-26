@@ -1,4 +1,4 @@
-import {ExtensibleCollection} from "./ExtensibleCollection";
+import {ArrayLike} from "./ArrayLike";
 
 interface Element<T> {
     readonly value: T;
@@ -6,7 +6,7 @@ interface Element<T> {
     next?: Element<T>
 }
 
-export class LinkedList<T> implements ExtensibleCollection<T>, Iterable<T> {
+export class LinkedList<T> implements ArrayLike<T>, Iterable<T> {
     private _first?: Element<T>;
     private _last?: Element<T>;
     private _size = 0;
