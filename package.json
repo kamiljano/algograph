@@ -2,7 +2,7 @@
   "name": "algograph",
   "version": "1.0.0",
   "description": "A small library allowing to traverse and manage graphs",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest ."

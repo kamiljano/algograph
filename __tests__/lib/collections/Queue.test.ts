@@ -1,4 +1,4 @@
-import {Queue} from "../../../lib/collections/Queue";
+import {Queue} from '../../../';
 
 describe('Given a queue', () => {
 

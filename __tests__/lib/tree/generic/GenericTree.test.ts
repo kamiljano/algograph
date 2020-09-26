@@ -1,4 +1,4 @@
-import {GenericTree} from "../../../../lib/tree/generic/GenericTree";
+import { GenericTree } from '../../../../';
 
 describe('Given a GenericTree', () => {
 

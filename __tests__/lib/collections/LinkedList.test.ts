@@ -1,4 +1,4 @@
-import {LinkedList} from "../../../lib/collections/LinkedList";
+import { LinkedList } from '../../../';
 
 describe('Given a LinkedList', () => {
 

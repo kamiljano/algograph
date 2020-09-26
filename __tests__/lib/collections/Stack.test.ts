@@ -1,4 +1,4 @@
-import {Stack} from "../../../lib/collections/Stack";
+import {Stack} from  '../../../';
 
 describe('Given a stack', () => {
 
