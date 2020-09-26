@@ -1,186 +1,150 @@
-import {GenericTree} from "../../../../lib/tree/generic/GenericTree";
+import {BinaryTree} from "../../../../lib/tree/binary/BinaryTree";
 
-describe('Given a GenericTree', () => {
+describe('Given a BinaryTree', () => {
 
     describe('When requesting the count', () => {
 
         test('of an empty tree, Then the count is 0', () => {
-            expect(new GenericTree().count).toBe(0);
+            expect(new BinaryTree().count).toBe(0);
         });
 
         test('of a 1-element tree, Then the count is 1', () => {
-            expect(new GenericTree({
+            expect(new BinaryTree({
                 value: 1
             }).count).toBe(1);
         });
 
-        test('of a 1-element tree with 3 children, Then the count is 4', () => {
-            expect(new GenericTree({
+        test('of a 1-element tree with 2 children, Then the count is 3', () => {
+            expect(new BinaryTree({
                 value: 1,
-                children: [
-                    {
-                        value: 1
-                    },
-                    {
-                        value: 1
-                    },
-                    {
-                        value: 1
-                    }
-                ]
-            }).count).toBe(4);
+                left: {
+                    value: 2
+                },
+                right: {
+                    value: 3
+                }
+            }).count).toBe(3);
         });
 
-        test('of a 1-element tree with depth 3, Then the count is 4', () => {
-            expect(new GenericTree({
+        test('of a 1-element tree with depth 4, Then the count is 4', () => {
+            expect(new BinaryTree({
                 value: 1,
-                children: [
-                    {
+                left: {
+                    value: 1,
+                    left: {
                         value: 1,
-                        children: [
-                            {
-                                value: 1,
-                                children: [
-                                    {
-                                        value: 1
-                                    }
-                                ]
-                            }
-                        ]
+                        left: {
+                            value: 1
+                        }
                     }
-                ]
+                }
             }).count).toBe(4);
         });
-
     });
 
     describe('When requesting the depth', () => {
 
         test('of an empty tree, Then the depth is 0', () => {
-            expect(new GenericTree().depth).toBe(0);
+            expect(new BinaryTree().depth).toBe(0);
         });
 
         test('of 1-element tree, Then the depth is 1', () => {
-            expect(new GenericTree({
+            expect(new BinaryTree({
                 value: 1
             }).depth).toBe(1);
         });
 
         test('of 1-element tree with 1 child, Then the depth is 2', () => {
-            expect(new GenericTree({
+            expect(new BinaryTree({
                 value: 1,
-                children: [
-                    {
-                        value: 1
-                    }
-                ]
+                left: {
+                    value: 1
+                }
             }).depth).toBe(2);
         });
 
         test('of 1-element tree with 2 children, Then the depth is 2', () => {
-            expect(new GenericTree({
+            expect(new BinaryTree({
                 value: 1,
-                children: [
-                    {
-                        value: 1
-                    },
-                    {
-                        value: 1
-                    }
-                ]
+                left: {
+                    value: 1
+                },
+                right: {
+                    value: 1
+                }
             }).depth).toBe(2);
         });
 
         test('of a tree of depth 3, Then the returned depth is 3', () => {
-            expect(new GenericTree({
+            expect(new BinaryTree({
                 value: 1,
-                children: [
-                    {
-                        value: 1,
-                        children: [
-                            {
-                                value: 1
-                            }
-                        ]
+                left: {
+                    value: 1,
+                    right: {
+                        value: 1
                     }
-                ]
+                }
             }).depth).toBe(3);
 
-            expect(new GenericTree({
+            expect(new BinaryTree({
                 value: 1,
-                children: [
-                    {
+                left: {
+                    value: 1,
+                },
+                right: {
+                    value: 1,
+                    left: {
                         value: 1
                     },
-                    {
-                        value: 1,
-                        children: [
-                            {
-                                value: 1
-                            },
-                            {
-                                value: 1
-                            }
-                        ]
+                    right: {
+                        value: 1
                     }
-                ]
+                }
             }).depth).toBe(3);
         });
 
         test('of a tree of depth 4, Then the returned depth is 4', () => {
-            expect(new GenericTree({
+            expect(new BinaryTree({
                 value: 1,
-                children: [
-                    {
+                left: {
+                    value: 1,
+                    right: {
                         value: 1,
-                        children: [
-                            {
-                                value: 1,
-                                children: [
-                                    {
-                                        value: 1
-                                    }
-                                ]
-                            }
-                        ]
+                        left: {
+                            value: 1
+                        }
                     }
-                ]
+                }
             }).depth).toBe(4);
         });
     });
 
     describe('When iterating it', () => {
 
-        const tree = new GenericTree<number>({
+        const tree = new BinaryTree<number>({
             value: 1,
-            children: [
-                {
-                    value: 2,
-                    children: [
-                        {
-                            value: 4,
-                        },
-                        {
-                            value: 5,
-                        }
-                    ]
+            left: {
+                value: 2,
+                left: {
+                    value: 4
                 },
-                {
-                    value: 3,
-                    children: [
-                        {
-                            value: 6
-                        }
-                    ]
+                right: {
+                    value: 5
                 }
-            ]
+            },
+            right: {
+                value: 3,
+                right: {
+                    value: 6
+                }
+            }
         });
 
         describe('depth first', () => {
 
             describe('using the root iterator', () => {
 
-                const getValues = (tree: GenericTree<number>) => {
+                const getValues = (tree: BinaryTree<number>) => {
                     const result: number[] = [];
                     for (let node of tree) {
                         result.push(node.value);
@@ -189,7 +153,7 @@ describe('Given a GenericTree', () => {
                 };
 
                 test('and it has no elements, Then loop is never executed', () => {
-                    const result = getValues(new GenericTree<number>());
+                    const result = getValues(new BinaryTree<number>());
 
                     expect(result).toEqual([]);
                 });
@@ -212,7 +176,7 @@ describe('Given a GenericTree', () => {
             });
 
             describe('using the iterator.depthFirst iterator', () => {
-                const getValues = (tree: GenericTree<number>) => {
+                const getValues = (tree: BinaryTree<number>) => {
                     const result: number[] = [];
                     for (let node of tree.iterator.depthFirst) {
                         result.push(node.value);
@@ -221,7 +185,7 @@ describe('Given a GenericTree', () => {
                 };
 
                 test('and it has no elements, Then loop is never executed', () => {
-                    const result = getValues(new GenericTree<number>());
+                    const result = getValues(new BinaryTree<number>());
 
                     expect(result).toEqual([]);
                 });
@@ -234,7 +198,7 @@ describe('Given a GenericTree', () => {
             });
 
             describe('using the iterator.depthFirst.forEach iterator', () => {
-                const getValues = (tree: GenericTree<number>) => {
+                const getValues = (tree: BinaryTree<number>) => {
                     const result: number[] = [];
                     tree.iterator.depthFirst.forEach(node => {
                         result.push(node.value);
@@ -243,7 +207,7 @@ describe('Given a GenericTree', () => {
                 };
 
                 test('and it has no elements, Then loop is never executed', () => {
-                    const result = getValues(new GenericTree<number>());
+                    const result = getValues(new BinaryTree<number>());
 
                     expect(result).toEqual([]);
                 });
@@ -256,10 +220,10 @@ describe('Given a GenericTree', () => {
             });
 
             describe('using the iterator.depthFirst.map iterator', () => {
-                const getValues = (tree: GenericTree<number>) => tree.iterator.depthFirst.map(node => node.value);
+                const getValues = (tree: BinaryTree<number>) => tree.iterator.depthFirst.map(node => node.value);
 
                 test('and it has no elements, Then loop is never executed', () => {
-                    const result = getValues(new GenericTree<number>());
+                    const result = getValues(new BinaryTree<number>());
 
                     expect(result).toEqual([]);
                 });
@@ -272,7 +236,7 @@ describe('Given a GenericTree', () => {
             });
 
             describe('using the forEach iterator', () => {
-                const getValues = (tree: GenericTree<number>) => {
+                const getValues = (tree: BinaryTree<number>) => {
                     const result: number[] = [];
                     tree.forEach(node => {
                         result.push(node.value);
@@ -281,7 +245,7 @@ describe('Given a GenericTree', () => {
                 };
 
                 test('and it has no elements, Then loop is never executed', () => {
-                    const result = getValues(new GenericTree<number>());
+                    const result = getValues(new BinaryTree<number>());
 
                     expect(result).toEqual([]);
                 });
@@ -294,10 +258,10 @@ describe('Given a GenericTree', () => {
             });
 
             describe('using the map iterator', () => {
-                const getValues = (tree: GenericTree<number>) => tree.map(node => node.value);
+                const getValues = (tree: BinaryTree<number>) => tree.map(node => node.value);
 
                 test('and it has no elements, Then loop is never executed', () => {
-                    const result = getValues(new GenericTree<number>());
+                    const result = getValues(new BinaryTree<number>());
 
                     expect(result).toEqual([]);
                 });
@@ -313,7 +277,7 @@ describe('Given a GenericTree', () => {
         describe('breadth first', () => {
 
             describe('using the iterator.breadthFirst iterator', () => {
-                const getValues = (tree: GenericTree<number>) => {
+                const getValues = (tree: BinaryTree<number>) => {
                     const result: number[] = [];
                     for (let node of tree.iterator.breadthFirst) {
                         result.push(node.value);
@@ -322,7 +286,7 @@ describe('Given a GenericTree', () => {
                 };
 
                 test('and it has no elements, Then loop is never executed', () => {
-                    const result = getValues(new GenericTree<number>());
+                    const result = getValues(new BinaryTree<number>());
 
                     expect(result).toEqual([]);
                 });
@@ -335,7 +299,7 @@ describe('Given a GenericTree', () => {
             });
 
             describe('using the iterator.breadthFirst.forEach iterator', () => {
-                const getValues = (tree: GenericTree<number>) => {
+                const getValues = (tree: BinaryTree<number>) => {
                     const result: number[] = [];
                     tree.iterator.breadthFirst.forEach(node => {
                         result.push(node.value);
@@ -344,7 +308,7 @@ describe('Given a GenericTree', () => {
                 };
 
                 test('and it has no elements, Then loop is never executed', () => {
-                    const result = getValues(new GenericTree<number>());
+                    const result = getValues(new BinaryTree<number>());
 
                     expect(result).toEqual([]);
                 });
@@ -357,10 +321,10 @@ describe('Given a GenericTree', () => {
             });
 
             describe('using the iterator.breadthFirst.map iterator', () => {
-                const getValues = (tree: GenericTree<number>) => tree.iterator.breadthFirst.map(node => node.value);
+                const getValues = (tree: BinaryTree<number>) => tree.iterator.breadthFirst.map(node => node.value);
 
                 test('and it has no elements, Then loop is never executed', () => {
-                    const result = getValues(new GenericTree<number>());
+                    const result = getValues(new BinaryTree<number>());
 
                     expect(result).toEqual([]);
                 });
@@ -374,5 +338,4 @@ describe('Given a GenericTree', () => {
         });
 
     });
-
 });
