@@ -3,10 +3,10 @@ type Mapping<T, R> = (value: T) => R;
 
 export class GenericIterator<T> implements Iterable<T>{
 
-    protected constructor(private readonly _iteratorGetter: () => Iterator<T>) {}
+    protected constructor(private readonly _defaultIteratorGetter: () => Iterator<T>) {}
 
     [Symbol.iterator](): Iterator<T> {
-        return this._iteratorGetter();
+        return this._defaultIteratorGetter();
     }
 
     forEach(consumer: ForEachConsumer<T>): void {
@@ -22,4 +22,6 @@ export class GenericIterator<T> implements Iterable<T>{
         }
         return result;
     }
+
+    //todo: reduce()
 }
